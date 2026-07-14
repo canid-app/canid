@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0c0a08" />
+    <meta
+      name="description"
+      content="How canid works as a free digital contact card: supported platforms, QR codes, NFC tags, privacy, and the trade-offs of a card that lives in a link."
+    />
+    <title>canid FAQ: how it works, platforms, QR &amp; NFC</title>
+    <link rel="canonical" href="https://canid.app/faq" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="canid" />
+    <meta property="og:url" content="https://canid.app/faq" />
+    <meta
+      property="og:title"
+      content="canid FAQ: how it works, platforms, QR &amp; NFC"
+    />
+    <meta
+      property="og:description"
+      content="How canid works as a free digital contact card: supported platforms, QR codes, NFC tags, privacy, and the trade-offs of a card that lives in a link."
+    />
+    <meta property="og:image" content="https://canid.app/icons/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="canid: a free digital contact card"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="canid FAQ: how it works, platforms, QR &amp; NFC"
+    />
+    <meta
+      name="twitter:description"
+      content="How canid works as a free digital contact card: supported platforms, QR codes, NFC tags, privacy, and the trade-offs of a card that lives in a link."
+    />
+    <meta name="twitter:image" content="https://canid.app/icons/og-image.png" />
+    <meta
+      name="twitter:image:alt"
+      content="canid: a free digital contact card"
+    />
+    <link rel="icon" href="/icons/favicon.ico" sizes="any" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/icons/favicon-16x16.png"
+    />
+    <link
+      rel="preload"
+      href="/fonts/Karrik-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/css/app.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is canid?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A free digital contact card. You add the handles and links you want to share, sort them into groups, and hand them out as a QR code, an NFC tag, or a link. It’s important to remember that you don’t ‘post’ a card to canid. It’s formatted directly in the viewer’s browser whenever they click the link, not stored anywhere as a webpage."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Who is canid for?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Anyone who wants to hand out their contact info quickly and on their own terms. canid is especially handy if you keep different parts of your life separate, or move between scenes and communities. For example alt, kink, and fetish communities, the furry and pup scenes, drag performers and nightlife folks, sex workers and creators, as well as people networking at conventions, markets, and meetups. It’s also helpful if you generally need a link aggregator or online contact list that you don’t want aggregated by search engines or sold. canid is a neutral tool. It just formats and shares whatever handles you enter, and takes no position on what you share or which communities you belong to."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Staying safe",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Because there is no database and no servers, canid cannot verify any information entered into a card. Please make sure you only click links from people you trust, and review any URLs carefully. Links to supported networks go directly to those networks, and custom URLs show a warning before you navigate to them. Please pay attention!"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Who’s responsible for what’s on a card?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You are. Because canid stores nothing and checks nothing, you’re responsible for the handles and links you add and for having the right to share them. Only put things on a card that are yours, or that you have permission to share. The terms cover this in full."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does it work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Everything on your card is packed into the link itself (the part after the “#”). When you share a link or QR, you are handing someone that packed-up card directly. Their device unpacks it and shows the handles. Nothing is looked up on a server, because there is no server holding your card. Plainly: canid is just a visual formatter. The web address contains all of the data, and the site simply displays it on the viewer’s device."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which platforms can I add?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A lot, with more on the way. Right now canid supports: Messaging & social: Telegram, Signal, WhatsApp, Discord, X, Bluesky, Threads, Instagram, Facebook, Snapchat, Reddit, Fur Affinity, TikTok, YouTube, and Twitch. Community & dating: Recon, FetLife, and Barq. Creators & support: OnlyFans, JustForFans, Patreon, Ko-fi, Substack, and Medium. Money & shops: PayPal, Venmo, Cash App, Amazon Wishlist, and Etsy. Plus LinkedIn, GitHub, Steam, Spotify, Strava, Flickr, and Calendly. You can always add any other site as a custom link. You can also add a phone number, email address, and a location. Whoever opens your card can download it straight to their contacts as a .vcf file. Don’t see one you want? Email dev@canid.app and it may get added."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does my link look like random characters?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Your card is scrambled into the link so it doesn’t sit there as plain text. That way a casual bot or scraper crawling a link you posted somewhere can’t simply read your handles out of the address bar. Important: scrambled is not the same as encrypted or private. There is no secret key. The viewer page unscrambles the link on its own, so anyone you hand the link or QR to can open it and see everything in that group. Only put things on a card that you’re comfortable having out in the world."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use this as a link-in-bio, or embed it anywhere else?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! canid links are long and ugly, but on services where you can add a hyperlink with a title, this is not an issue. You can also run canid links through a shortener, but this introduces a server (and often a tracker) into the chain. canid URLs can also be loaded on NFC tags and stickers depending on the tag’s capacity and how long the canid URL is. Embedding the card itself on a webpage is not supported."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I write my card to an NFC tag?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, right from canid (or with a standalone NFC app). If you’re using Chrome on Android, an NFC icon appears in the top bar. Tap it, then hold the top of your phone against a blank NFC tag, and the active group’s link is written to it. Anyone can then tap the tag with their phone to open your card. This uses your browser’s built-in NFC support, which today is only available in Chrome on Android, so the icon won’t show on iPhone or on desktop. Writing never locks the tag, so you can reuse and overwrite it as often as you like. Tags come in different capacities. A longer card link needs a roomier tag (for example an NTAG215 or NTAG216 rather than a basic NTAG213). canid will hint if your link is on the long side, and if a tag is too small the write will fail."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you (canid) see my handles?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The part of a web address after the “#” is never sent to any server — your browser keeps it on your device. So your handles never reach canid, and they never reach Cloudflare either. The server simply hosts the front-end files that decode the card on your own device. For honesty: the site is delivered through Cloudflare, which protects it from attacks and outages. Like any network provider, Cloudflare can see that some device requested a canid page, along with basic connection details such as an IP address but never the contents of your card, because that part of the link is never transmitted. To count how many people use the site we use Simple Analytics, a privacy-first, cookieless service that tallies page visits anonymously. It never sees your card and never tracks you across sites. It runs only on the editor and information pages, not on the viewer page that opens a card, so there is still no way for anyone to see who opened your card or what was inside it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I un-share or “revoke” a link I already gave out?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. A link or QR is a snapshot of your card at the moment you shared it. Once someone has it, they keep that snapshot, exactly like a paper card you handed over. There is no server to switch off and no way to reach into their phone. So only put things on a card that you are comfortable having out in the world, and share the more personal groups with people you trust."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "I edited my card. Why do I have to share it again?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Because the old link is a snapshot encoded in the URL, it still points to your card as it was when you shared it. Your edits live on your device, not in links you already handed out. To share the new version, copy a fresh link or show your QR again. The Copy button tells you when your link is out of date."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if I clear my browser or get a new phone?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Your editable card lives only on the device you made it on. A full backup restores everything — every group and profile — so it’s the copy to rely on. A share link you saved for yourself works as a partial fallback: paste it into Back up & restore and canid rebuilds that card’s handles as a new profile (a link only carries one group, so the rest isn’t in it). Without either, clearing your data or switching phones means starting from scratch. Use Back up & restore to save a copy you can move to another device or keep in a password manager. One thing to know on iPhone and iPad: if you use canid in a Safari tab without installing it, Apple may automatically delete its saved data after about a week of not opening it. Installing canid to your Home Screen avoids that."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I save cards other people share with me?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. When you open a card someone shared, tap Save to keep it in your Saved cards. Give each one a name when you save it so it’s easy to find later, and remove any card whenever you like. Saved cards work like everything else in canid: they live only on your device and are never uploaded anywhere, so canid still can’t see them. Saving a card doesn’t verify it or vouch for whoever made it so the same “only trust cards from people you know” rule applies. Because they’re stored on your device, the same caveats apply: clearing your browser can remove them, and an uninstalled Safari tab on iPhone may drop them after about a week. Use Back up on the Saved cards page to keep a copy, and Add by link to save a card on iPhone, where shared links open in the browser rather than the app."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are the groups really private?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Whoever scans a particular code or clicks a link sees only the group you shared, and can’t tell the other groups exist. But a group is only as private as the link. Anyone who gets that particular link or QR sees everything in that group. And because each link is a snapshot, anyone you already shared with keeps the version they got; later edits only appear in a fresh link."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What’s the difference between groups and profiles?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A profile holds a few groups (say Everyone, Friends, Close), all drawing from the same set of handles. Each group is its own shareable card, and you choose which one a given link or QR reveals. Profiles are the level above: each is a completely separate set of cards, with its own handles, its own groups, its own display name, and its own color. Different profiles share nothing. Use the bar at the top of the editor to name, switch between, and manage them — and to see at a glance which profile you’re about to share from. Like everything else, profiles live only on your device and are never uploaded. One backup covers all of them at once, so you don’t need to track a separate one per profile."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it really free? Any tracking or ads?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Free, with no accounts, no cookies, and no ads. The only third-party script is Simple Analytics — a privacy-first, cookieless tool that counts page visits anonymously, doesn’t track you across sites, and never sees your card. It runs on the editor and information pages, not on the viewer page that opens a card. (The site is delivered through Cloudflare for security and speed; see “Can you (canid) see my handles?” above for exactly what that can and can’t see.) There’s no card data to monetize, and that isn’t the point of canid anyway."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why did you make this?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "I don’t like surveillance capitalism, sharing contacts in chaotic environments is difficult, and I want to be able to share different handles with different groups. That’s pretty much it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Found a bug, or have feedback?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Email dev@canid.app."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Credits",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Type is set in Karrik, by Jean-Baptiste Morizot and Lucas Le Bihan, distributed by velvetyne.fr."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+
+  <body class="faq-page">
+    <header class="lp-bar">
+      <div class="lp-bar-inner">
+        <a class="lp-wordmark" href="/" aria-label="canid home"
+          ><img
+            src="/icons/canid-logo.svg"
+            alt=""
+            width="289"
+            height="129"
+            class="lp-logo-img"
+        /></a>
+        <nav class="lp-nav" id="lp-nav" aria-label="Primary">
+          <a href="/#how">How it works</a>
+          <a
+            href="/c#~vHCP765@hR5f652NPGgXVpdjJS-vV76r+Vzeb5iDEL/vkDIoN=fZ.o2_wTVnW/FS8GC&amp;HKtS3IyudErq2Jh3K~uZGgDLj_0r+VK5L.B/uR1fte:YUMEofKtSZE-BxLSPrIhUBnfl90W4vhNr+V@qK~sksF8@g+ppmDxUCKtS0L1BxLoG9Js4&amp;IW=/kG9~5KCAAkQ5z"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Sample card</a
+          >
+          <a href="/#data">Your data</a>
+          <a href="/#install">Install</a>
+          <a href="/faq">FAQ</a>
+          <a href="/terms">Terms</a>
+          <a href="mailto:dev@canid.app">Contact</a>
+        </nav>
+        <button
+          class="lp-nav-toggle"
+          id="lp-nav-toggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="lp-nav"
+        >
+          <span class="ui-icon" data-icon="menu"></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="faq-page-main">
+      <h1 class="faq-page-title">How it works &amp; FAQ</h1>
+      <p class="faq-page-sub">
+        canid is a free digital contact card that lives in a link, not on a
+        server. Here’s what that means for you.
+      </p>
+
+      <div id="faq-body" class="faq-body">
+        <details class="faq-item">
+          <summary class="faq-q">What is canid?</summary>
+          <div class="faq-a">
+            <p>
+              A free digital contact card. You add the handles and links you
+              want to share, sort them into groups, and hand them out as a QR
+              code, an NFC tag, or a link.
+            </p>
+            <p>
+              It’s important to remember that you don’t ‘post’ a card to canid.
+              It’s formatted directly in the viewer’s browser whenever they
+              click the link, not stored anywhere as a webpage.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Who is canid for?</summary>
+          <div class="faq-a">
+            <p>
+              Anyone who wants to hand out their contact info quickly and on
+              their own terms. canid is especially handy if you keep different
+              parts of your life separate, or move between scenes and
+              communities. For example alt, kink, and fetish communities, the
+              furry and pup scenes, drag performers and nightlife folks, sex
+              workers and creators, as well as people networking at conventions,
+              markets, and meetups. It’s also helpful if you generally need a
+              link aggregator or online contact list that you don’t want
+              aggregated by search engines or sold. canid is a neutral tool. It
+              just formats and shares whatever handles you enter, and takes no
+              position on what you share or which communities you belong to.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item" id="staying-safe">
+          <summary class="faq-q">Staying safe</summary>
+          <div class="faq-a">
+            <p>
+              Because there is no database and no servers, canid cannot verify
+              any information entered into a card. Please make sure you only
+              click links from people you trust, and review any URLs carefully.
+              Links to supported networks go directly to those networks, and
+              custom URLs show a warning before you navigate to them. Please pay
+              attention!
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">
+            Who’s responsible for what’s on a card?
+          </summary>
+          <div class="faq-a">
+            <p>
+              You are. Because canid stores nothing and checks nothing, you’re
+              responsible for the handles and links you add and for having the
+              right to share them. Only put things on a card that are yours, or
+              that you have permission to share. The
+              <a href="/terms">terms</a> cover this in full.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">How does it work?</summary>
+          <div class="faq-a">
+            <p>
+              Everything on your card is packed into the link itself (the part
+              after the “#”). When you share a link or QR, you are handing
+              someone that packed-up card directly. Their device unpacks it and
+              shows the handles. Nothing is looked up on a server, because there
+              is no server holding your card.
+            </p>
+            <p>
+              Plainly: canid is just a visual formatter. The web address
+              contains all of the data, and the site simply displays it on the
+              viewer’s device.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Which platforms can I add?</summary>
+          <div class="faq-a">
+            <p>A lot, with more on the way. Right now canid supports:</p>
+            <p>
+              <strong>Messaging &amp; social:</strong> Telegram, Signal,
+              WhatsApp, Discord, X, Bluesky, Threads, Instagram, Facebook,
+              Snapchat, Reddit, Fur Affinity, TikTok, YouTube, and Twitch.
+            </p>
+            <p>
+              <strong>Community &amp; dating:</strong> Recon, FetLife, and Barq.
+            </p>
+            <p>
+              <strong>Creators &amp; support:</strong> OnlyFans, JustForFans,
+              Patreon, Ko-fi, Substack, and Medium.
+            </p>
+            <p>
+              <strong>Money &amp; shops:</strong> PayPal, Venmo, Cash App,
+              Amazon Wishlist, and Etsy.
+            </p>
+            <p>
+              Plus LinkedIn, GitHub, Steam, Spotify, Strava, Flickr, and
+              Calendly. You can always add any other site as a custom link.
+            </p>
+            <p>
+              You can also add a phone number, email address, and a location.
+              Whoever opens your card can download it straight to their contacts
+              as a .vcf file.
+            </p>
+            <p>
+              Don’t see one you want? Email
+              <a href="mailto:dev@canid.app">dev@canid.app</a> and it may get
+              added.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">
+            Why does my link look like random characters?
+          </summary>
+          <div class="faq-a">
+            <p>
+              Your card is scrambled into the link so it doesn’t sit there as
+              plain text. That way a casual bot or scraper crawling a link you
+              posted somewhere can’t simply read your handles out of the address
+              bar.
+            </p>
+            <p>
+              Important: scrambled is not the same as encrypted or private.
+              There is no secret key. The viewer page unscrambles the link on
+              its own, so anyone you hand the link or QR to can open it and see
+              everything in that group. Only put things on a card that you’re
+              comfortable having out in the world.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">
+            Can I use this as a link-in-bio, or embed it anywhere else?
+          </summary>
+          <div class="faq-a">
+            <p>
+              Yes! canid links are long and ugly, but on services where you can
+              add a hyperlink with a title, this is not an issue. You can also
+              run canid links through a shortener, but this introduces a server
+              (and often a tracker) into the chain. canid URLs can also be
+              loaded on NFC tags and stickers depending on the tag’s capacity
+              and how long the canid URL is. Embedding the card itself on a
+              webpage is not supported.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Can I write my card to an NFC tag?</summary>
+          <div class="faq-a">
+            <p>
+              Yes, right from canid (or with a standalone NFC app). If you’re
+              using <strong>Chrome on Android</strong>, an NFC icon appears in
+              the top bar. Tap it, then hold the top of your phone against a
+              blank NFC tag, and the active group’s link is written to it.
+              Anyone can then tap the tag with their phone to open your card.
+            </p>
+            <p>
+              This uses your browser’s built-in NFC support, which today is only
+              available in Chrome on Android, so the icon won’t show on iPhone
+              or on desktop. Writing never locks the tag, so you can reuse and
+              overwrite it as often as you like.
+            </p>
+            <p>
+              Tags come in different capacities. A longer card link needs a
+              roomier tag (for example an NTAG215 or NTAG216 rather than a basic
+              NTAG213). canid will hint if your link is on the long side, and if
+              a tag is too small the write will fail.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Can you (canid) see my handles?</summary>
+          <div class="faq-a">
+            <p>
+              No. The part of a web address after the “#” is never sent to any
+              server — your browser keeps it on your device. So your handles
+              never reach canid, and they never reach Cloudflare either. The
+              server simply hosts the front-end files that decode the card on
+              your own device.
+            </p>
+            <p>
+              For honesty: the site is delivered through Cloudflare, which
+              protects it from attacks and outages. Like any network provider,
+              Cloudflare can see that some device requested a canid page, along
+              with basic connection details such as an IP address but never the
+              contents of your card, because that part of the link is never
+              transmitted. To count how many people use the site we use Simple
+              Analytics, a privacy-first, cookieless service that tallies page
+              visits anonymously. It never sees your card and never tracks you
+              across sites. It runs only on the editor and information pages,
+              not on the viewer page that opens a card, so there is still no way
+              for anyone to see who opened your card or what was inside it.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">
+            Can I un-share or “revoke” a link I already gave out?
+          </summary>
+          <div class="faq-a">
+            <p>
+              No. A link or QR is a snapshot of your card at the moment you
+              shared it. Once someone has it, they keep that snapshot, exactly
+              like a paper card you handed over. There is no server to switch
+              off and no way to reach into their phone.
+            </p>
+            <p>
+              So only put things on a card that you are comfortable having out
+              in the world, and share the more personal groups with people you
+              trust.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">
+            I edited my card. Why do I have to share it again?
+          </summary>
+          <div class="faq-a">
+            <p>
+              Because the old link is a snapshot encoded in the URL, it still
+              points to your card as it was when you shared it. Your edits live
+              on your device, not in links you already handed out. To share the
+              new version, copy a fresh link or show your QR again. The Copy
+              button tells you when your link is out of date.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">
+            What happens if I clear my browser or get a new phone?
+          </summary>
+          <div class="faq-a">
+            <p>
+              Your editable card lives only on the device you made it on. A full
+              backup restores everything — every group and profile — so it’s the
+              copy to rely on. A share link you saved for yourself works as a
+              partial fallback: paste it into Back up &amp; restore and canid
+              rebuilds that card’s handles as a new profile (a link only carries
+              one group, so the rest isn’t in it). Without either, clearing your
+              data or switching phones means starting from scratch. Use Back up
+              &amp; restore to save a copy you can move to another device or
+              keep in a password manager.
+            </p>
+            <p>
+              One thing to know on iPhone and iPad: if you use canid in a Safari
+              tab without installing it, Apple may automatically delete its
+              saved data after about a week of not opening it. Installing canid
+              to your Home Screen avoids that.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">
+            Can I save cards other people share with me?
+          </summary>
+          <div class="faq-a">
+            <p>
+              Yes. When you open a card someone shared, tap
+              <strong>Save</strong> to keep it in your Saved cards. Give each
+              one a name when you save it so it’s easy to find later, and remove
+              any card whenever you like.
+            </p>
+            <p>
+              Saved cards work like everything else in canid: they live only on
+              your device and are never uploaded anywhere, so canid still can’t
+              see them. Saving a card doesn’t verify it or vouch for whoever
+              made it so the same “only trust cards from people you know” rule
+              applies.
+            </p>
+            <p>
+              Because they’re stored on your device, the same caveats apply:
+              clearing your browser can remove them, and an uninstalled Safari
+              tab on iPhone may drop them after about a week. Use
+              <strong>Back up</strong> on the Saved cards page to keep a copy,
+              and <strong>Add by link</strong> to save a card on iPhone, where
+              shared links open in the browser rather than the app.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Are the groups really private?</summary>
+          <div class="faq-a">
+            <p>
+              Whoever scans a particular code or clicks a link sees only the
+              group you shared, and can’t tell the other groups exist. But a
+              group is only as private as the link. Anyone who gets that
+              particular link or QR sees everything in that group. And because
+              each link is a snapshot, anyone you already shared with keeps the
+              version they got; later edits only appear in a fresh link.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">
+            What’s the difference between groups and profiles?
+          </summary>
+          <div class="faq-a">
+            <p>
+              A profile holds a few groups (say Everyone, Friends, Close), all
+              drawing from the same set of handles. Each group is its own
+              shareable card, and you choose which one a given link or QR
+              reveals.
+            </p>
+            <p>
+              Profiles are the level above: each is a completely separate set of
+              cards, with its own handles, its own groups, its own display name,
+              and its own color. Different profiles share nothing. Use the bar
+              at the top of the editor to name, switch between, and manage them
+              — and to see at a glance which profile you’re about to share from.
+            </p>
+            <p>
+              Like everything else, profiles live only on your device and are
+              never uploaded. One backup covers all of them at once, so you
+              don’t need to track a separate one per profile.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">
+            Is it really free? Any tracking or ads?
+          </summary>
+          <div class="faq-a">
+            <p>
+              Free, with no accounts, no cookies, and no ads. The only
+              third-party script is Simple Analytics — a privacy-first,
+              cookieless tool that counts page visits anonymously, doesn’t track
+              you across sites, and never sees your card. It runs on the editor
+              and information pages, not on the viewer page that opens a card.
+              (The site is delivered through Cloudflare for security and speed;
+              see “Can you (canid) see my handles?” above for exactly what that
+              can and can’t see.) There’s no card data to monetize, and that
+              isn’t the point of canid anyway.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Why did you make this?</summary>
+          <div class="faq-a">
+            <p>
+              I don’t like surveillance capitalism, sharing contacts in chaotic
+              environments is difficult, and I want to be able to share
+              different handles with different groups. That’s pretty much it.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Found a bug, or have feedback?</summary>
+          <div class="faq-a">
+            <p>Email <a href="mailto:dev@canid.app">dev@canid.app</a>.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Credits</summary>
+          <div class="faq-a">
+            <p>
+              Type is set in <em>Karrik</em>, by Jean-Baptiste Morizot and Lucas
+              Le Bihan, distributed by
+              <a
+                href="https://velvetyne.fr/fonts/karrik/"
+                target="_blank"
+                rel="noopener"
+                >velvetyne.fr</a
+              >.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <a href="/editor" class="faq-cta notch-tr">Open the editor</a>
+    </main>
+
+    <footer id="web-footer">
+      <span class="footer-title">© 2026 canid</span>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/terms">Terms</a>
+        <a href="mailto:dev@canid.app">Contact</a>
+      </nav>
+    </footer>
+
+    <script type="module" src="/js/faq-page.js"></script>
+
+    <!-- Privacy-first, cookieless analytics. -->
+    <script
+      async
+      src="https://scripts.simpleanalyticscdn.com/latest.js"
+    ></script>
+  </body>
+</html>

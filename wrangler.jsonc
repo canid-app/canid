@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "canid",
+  "compatibility_date": "2026-06-17",
+  "compatibility_flags": ["nodejs_compat"],
+  // Keep Workers Logs off so no per-request logs are retained.
+  "observability": { "enabled": false },
+  "assets": {
+    // Serve the repo root as static files.
+    "directory": ".",
+    // Serve /c from c.html, /faq from faq.html, etc.
+    "html_handling": "auto-trailing-slash",
+    // Serve 404.html for any unmatched path.
+    "not_found_handling": "404-page"
+  }
+}

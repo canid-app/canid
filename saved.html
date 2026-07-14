@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0a08">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex">
+  <title>canid · saved cards</title>
+  <link rel="preload" href="/fonts/Karrik-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/icons/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/css/view.css">
+</head>
+<body>
+  <header class="v-header">
+    <a class="v-nav-btn v-back" href="/editor" aria-label="Back to editor">
+      <span aria-hidden="true">‹</span>
+    </a>
+    <div class="v-brand">
+      <img src="/icons/canid-logo.svg" alt="canid" class="v-logo" id="v-logo" width="289" height="129">
+    </div>
+  </header>
+
+  <main>
+    <h1 class="saved-title">Saved cards</h1>
+
+    <div id="saved-list"></div>
+    <p id="saved-empty" class="saved-empty" hidden>No saved cards yet. Open a card someone shared with you and tap <strong>Save</strong>.</p>
+
+    <footer class="saved-tools">
+      <hr class="cta-divider">
+
+      <section class="saved-tool">
+        <label class="saved-tool-label" for="add-link-input">Add a card by link</label>
+        <p class="saved-tool-desc">Paste a canid card link to save it here.</p>
+        <div class="saved-tool-row">
+          <input id="add-link-input" type="url" inputmode="url" placeholder="https://canid.app/c#…" autocomplete="off" autocapitalize="none" spellcheck="false">
+          <button id="add-link-btn" class="saved-btn notch-tr">Add</button>
+        </div>
+        <p id="add-link-msg" class="saved-tool-msg" role="status" hidden></p>
+      </section>
+
+      <section class="saved-tool">
+        <p class="saved-note">Saved cards live on this device. Your browser may clear them, so back them up to keep them safe.</p>
+        <div class="saved-tool-row">
+          <button id="backup-btn" class="saved-btn notch-tr">Back up</button>
+          <button id="restore-btn" class="saved-btn saved-btn-ghost">Restore</button>
+        </div>
+
+        <div id="backup-out" class="saved-backup" hidden>
+          <textarea id="backup-code" class="saved-code" readonly rows="3" aria-label="Saved cards backup code"></textarea>
+          <button id="backup-copy" class="saved-btn saved-btn-ghost">Copy code</button>
+        </div>
+
+        <div id="restore-in" class="saved-backup" hidden>
+          <textarea id="restore-code" class="saved-code" rows="3" placeholder="Paste your saved cards backup code" aria-label="Paste saved cards backup code"></textarea>
+          <button id="restore-go" class="saved-btn notch-tr">Restore cards</button>
+        </div>
+
+        <p id="backup-msg" class="saved-tool-msg" role="status" hidden></p>
+      </section>
+    </footer>
+  </main>
+
+  <div id="confirm-overlay" hidden>
+    <div id="confirm-dialog" class="kc-notch" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <p id="confirm-title" class="warn-title">Remove this card?</p>
+      <p id="confirm-desc" class="warn-desc">This removes it from your saved cards on this device. You can always add it again from its link.</p>
+      <div class="warn-actions">
+        <button id="confirm-cancel" class="warn-btn warn-cancel">Cancel</button>
+        <button id="confirm-remove" class="warn-btn warn-go notch-tr">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/saved-page.js"></script>
+</body>
+</html>

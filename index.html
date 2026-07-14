@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0c0a08" />
+    <meta
+      name="description"
+      content="A free digital contact card that lives in a link, not a server. Share the right handles with the right people. 30+ platforms."
+    />
+
+    <script src="/js/mode.js"></script>
+
+    <title>canid</title>
+    <link rel="icon" href="/icons/favicon.ico" sizes="any" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/icons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="canid" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+    <link
+      rel="preload"
+      href="/fonts/Karrik-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <style>
+      #boot-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: none;
+        background: #0c0a08;
+        opacity: 1;
+        transition: opacity 240ms ease;
+      }
+
+      html[data-mode="app"] #boot-splash {
+        display: block;
+      }
+
+      #boot-splash.boot-splash-done {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      @keyframes boot-splash-failsafe {
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+
+      #boot-splash {
+        animation: boot-splash-failsafe 400ms ease 8s forwards;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #boot-splash {
+          transition: none;
+        }
+      }
+    </style>
+
+    <link rel="stylesheet" href="/css/app.css" />
+
+    <noscript>
+      <style>
+        #top-bar,
+        #dashboard,
+        #bottom-nav,
+        #boot-splash {
+          display: none !important;
+        }
+      </style>
+    </noscript>
+
+    <link rel="canonical" href="https://canid.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="canid" />
+    <meta property="og:url" content="https://canid.app/" />
+    <meta property="og:title" content="canid: free digital contact card" />
+    <meta
+      property="og:description"
+      content="Share the right handles with the right people. Works with 30+ platforms."
+    />
+    <meta property="og:image" content="https://canid.app/icons/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="canid" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="canid: free digital contact card" />
+    <meta
+      name="twitter:description"
+      content="Share the right handles with the right people. Works with 30+ platforms."
+    />
+    <meta name="twitter:image" content="https://canid.app/icons/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "canid",
+        "alternateName": "canid digital contact card",
+        "url": "https://canid.app/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any (web browser)",
+        "browserRequirements": "Requires JavaScript",
+        "description": "A free digital contact card that lives in a link, not a server. Share the right handles by QR code or NFC tag with no app, no account, no tracking. Works with 30+ platforms.",
+        "keywords": "digital business card, digital contact card, QR code business card, NFC business card, NFC contact tag, link in bio alternative",
+        "featureList": [
+          "Share contact handles by QR code",
+          "Write your card to an NFC tag",
+          "Separate audience groups per card",
+          "Multiple private profiles",
+          "No account or app required"
+        ],
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "creator": {
+          "@type": "Organization",
+          "name": "canid",
+          "url": "https://canid.app/"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <noscript>
+      <p class="noscript-note">
+        canid needs JavaScript to build and show cards and your browser has it
+        turned off. The information below still applies.
+      </p>
+    </noscript>
+
+    <div id="boot-splash" aria-hidden="true"></div>
+
+    <header id="top-bar">
+      <div id="top-bar-inner">
+        <h1 class="app-title">
+          <img
+            src="/icons/canid-logo.svg"
+            alt="canid"
+            class="app-logo-img"
+            width="289"
+            height="129"
+          />
+        </h1>
+        <div class="bar-actions">
+          <button
+            id="install-hint-btn"
+            class="install-hint"
+            hidden
+            aria-label="Install app"
+            title="Install app"
+          >
+            <span class="ui-icon" data-icon="download"></span>
+            <span class="install-hint-label">Install app</span>
+          </button>
+          <button
+            id="nfc-btn"
+            class="bar-icon-btn"
+            hidden
+            aria-label="Write to NFC tag"
+            title="Write to NFC tag"
+          >
+            <span class="ui-icon" data-icon="nfc"></span>
+          </button>
+          <a
+            id="saved-btn"
+            class="bar-icon-btn"
+            href="/saved"
+            aria-label="Saved cards"
+            title="Saved cards"
+          >
+            <span class="ui-icon" data-icon="card"></span>
+          </a>
+          <button
+            id="info-btn"
+            class="bar-icon-btn"
+            aria-label="How it works &amp; FAQ"
+            title="How it works &amp; FAQ"
+          >
+            <span class="ui-icon" data-icon="info"></span>
+          </button>
+        </div>
+      </div>
+      <div id="profile-bar">
+        <button
+          id="profile-switch"
+          class="profile-switch"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-label="Switch profile"
+        >
+          <span class="profile-swatch" id="profile-swatch"></span>
+          <span class="profile-eyebrow">Profile</span>
+          <span class="profile-current" id="profile-current">Main</span>
+          <span class="profile-caret" aria-hidden="true">▾</span>
+        </button>
+      </div>
+    </header>
+
+    <div id="landing" aria-label="Landing page">
+      <header class="lp-bar">
+        <div class="lp-bar-inner">
+          <span class="lp-wordmark"
+            ><img
+              src="/icons/canid-logo.svg"
+              alt="canid"
+              class="lp-logo-img"
+              width="289"
+              height="129"
+          /></span>
+          <nav class="lp-nav" id="lp-nav" aria-label="Primary">
+            <a href="#how">How it works</a>
+            <a
+              href="/c#~vHCP765@hR5f652NPGgXVpdjJS-vV76r+Vzeb5iDEL/vkDIoN=fZ.o2_wTVnW/FS8GC&amp;HKtS3IyudErq2Jh3K~uZGgDLj_0r+VK5L.B/uR1fte:YUMEofKtSZE-BxLSPrIhUBnfl90W4vhNr+V@qK~sksF8@g+ppmDxUCKtS0L1BxLoG9Js4&amp;IW=/kG9~5KCAAkQ5z"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Sample card</a
+            >
+            <a href="#data">Your data</a>
+            <a href="#install">Install</a>
+            <a href="/faq">FAQ</a>
+            <a href="/terms">Terms</a>
+            <a href="mailto:dev@canid.app">Contact</a>
+          </nav>
+          <button
+            class="lp-nav-toggle"
+            id="lp-nav-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="lp-nav"
+          >
+            <span class="ui-icon" data-icon="menu"></span>
+          </button>
+        </div>
+      </header>
+
+      <main class="lp-main">
+        <section class="lp-hero">
+          <h1>Free, fast, digital business cards.</h1>
+          <p class="lp-hero-sub">
+            A business card that lives in a link, not on a server. Share it in
+            person or online. No data brokers or ads.
+          </p>
+          <a class="lp-cta" href="/editor"
+            >Open the editor <span class="ui-icon" data-icon="arrow"></span
+          ></a>
+        </section>
+
+        <section class="lp-block" id="how">
+          <h2 class="lp-h2">How it works</h2>
+          <ol class="lp-steps">
+            <li class="lp-step">Add the handles or links you want to share.</li>
+            <li class="lp-step">
+              Sort them into groups for different audiences or occasions.
+            </li>
+            <li class="lp-step">
+              Show your QR code in person, print it on a flyer, or drop your
+              link. Whoever opens it sees only that group, and can’t tell the
+              others exist.
+            </li>
+          </ol>
+        </section>
+
+        <div class="lp-duo">
+          <section class="lp-card" id="data">
+            <h2 class="lp-h2">Your data</h2>
+            <p>
+              canid has no database, no accounts, and no backend. Your handles
+              are packed into a single long URL, and that URL <em>is</em> your
+              card. It never touches a server: when someone opens your link,
+              their own browser builds the card on their screen.
+            </p>
+            <p>
+              Since no data lives online, this isn’t for everyone. Any link
+              you’ve shared keeps working forever but your editable card lives
+              only on your device, so clearing your browser or switching phones
+              means rebuilding it from scratch unless you kept a backup or a
+              link. And because each link is a fixed snapshot, you can’t edit or
+              revoke one you’ve handed out. Treat it like a paper business card:
+              once it’s out, that version is out. You also can’t know who, or
+              how many people, opened your card. If you’re trying to monetize an
+              audience or track engagement, canid probably isn’t for you.
+            </p>
+            <p>
+              In return, you can keep as many separate profiles as you like,
+              each with its own handles, groups, and color for a different part
+              of your life. All with no password to remember, no ads, and no data
+              sold.
+            </p>
+          </section>
+
+          <div class="lp-duo-col">
+            <section class="lp-card" id="why">
+              <h2 class="lp-h2">For the night (or day) out</h2>
+              <p>
+                canid was designed for sharing in dark, loud, or busy
+                environments like clubs, parties, markets, and meetups. That
+                means big tap targets, a native dark mode that won’t flash-bang
+                anyone, and a quick-access QR code. But, it works just as well
+                online if you’re okay with long links.
+              </p>
+            </section>
+
+            <section class="lp-card" id="custom">
+              <h2 class="lp-h2">Make it yours</h2>
+              <p>
+                canid is minimal and fast, but you can still give your card a
+                personal touch. Add your name (or don’t) and choose from
+                millions of colors and four typefaces. Cards can hold your
+                socials, phone, email, and location, and anyone who opens one
+                can save it straight to their contacts.
+              </p>
+            </section>
+          </div>
+        </div>
+
+        <section class="lp-block" id="install">
+          <h2 class="lp-h2">Install the app</h2>
+          <p class="lp-note">
+            canid runs in any browser. It’s
+            <strong>highly recommended</strong> to install canid on your phone
+            to keep your profile saved on your device and easily bring up the QR
+            code.
+          </p>
+          <div class="lp-install">
+            <div class="lp-platform">
+              <div class="lp-platform-head">
+                <span class="lp-tile"
+                  ><span class="ui-icon" data-icon="iphone"></span
+                ></span>
+                <h3>iPhone &amp; iPad<br /><span>Safari</span></h3>
+              </div>
+              <ol>
+                <li>
+                  Open this page in <strong>Safari</strong> (not Chrome or
+                  Firefox).
+                </li>
+                <li>
+                  Tap the <strong>Share</strong> button. It’s the box with an
+                  arrow pointing up, at the bottom of the screen.
+                </li>
+                <li>
+                  Scroll down and tap <strong>Add to Home Screen</strong>.
+                </li>
+                <li>Tap <strong>Add</strong> in the top-right corner.</li>
+              </ol>
+            </div>
+
+            <div class="lp-platform">
+              <div class="lp-platform-head">
+                <span class="lp-tile"
+                  ><span class="ui-icon" data-icon="android"></span
+                ></span>
+                <h3>Android<br /><span>Chrome</span></h3>
+              </div>
+              <ol>
+                <li>Open this page in <strong>Chrome</strong>.</li>
+                <li>
+                  Tap the <strong>three-dot menu</strong> (⋮) in the top-right
+                  corner.
+                </li>
+                <li>
+                  Tap <strong>Add to Home screen</strong> or
+                  <strong>Install app</strong>.
+                </li>
+                <li>Tap <strong>Install</strong> in the prompt.</li>
+              </ol>
+              <p class="lp-nfc-note">
+                <span class="ui-icon" data-icon="nfc"></span> You can also write
+                your card to a blank NFC tag: open the editor, tap the NFC icon
+                in its top bar, then hold your phone to the tag.
+              </p>
+            </div>
+
+            <div class="lp-platform">
+              <div class="lp-platform-head">
+                <span class="lp-tile"
+                  ><span class="ui-icon" data-icon="smartphone"></span
+                ></span>
+                <h3>Android<br /><span>Samsung Internet</span></h3>
+              </div>
+              <ol>
+                <li>Open this page in <strong>Samsung Internet</strong>.</li>
+                <li>
+                  Tap the <strong>menu icon</strong> (three lines) at the
+                  bottom-right.
+                </li>
+                <li>
+                  Tap <strong>Add page to</strong>, then
+                  <strong>Home screen</strong>.
+                </li>
+                <li>Tap <strong>Add</strong> to confirm.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <a
+          class="lp-preview"
+          href="/c#~vHCP765@hR5f652NPGgXVpdjJS-vV76r+Vzeb5iDEL/vkDIoN=fZ.o2_wTVnW/FS8GC&amp;HKtS3IyudErq2Jh3K~uZGgDLj_0r+VK5L.B/uR1fte:YUMEofKtSZE-BxLSPrIhUBnfl90W4vhNr+V@qK~sksF8@g+ppmDxUCKtS0L1BxLoG9Js4&amp;IW=/kG9~5KCAAkQ5z"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="lp-preview-text">
+            <h3>See an example</h3>
+            <p>
+              Open a sample card to see how it works. Remember, you can change
+              the colors to whatever you want.
+            </p>
+          </span>
+          <span class="lp-preview-link"
+            >Preview a sample card
+            <span class="ui-icon" data-icon="arrow"></span
+          ></span>
+        </a>
+      </main>
+    </div>
+
+    <div id="dashboard" aria-label="canid dashboard">
+      <section id="qr-section">
+        <img
+          class="present-logo"
+          src="/icons/canid-logo.svg"
+          alt="canid"
+          width="289"
+          height="129"
+        />
+        <div class="present-name" id="present-name"></div>
+        <div class="qr-outer">
+          <div class="qr-patch">
+            <div class="qr-wrap" id="qr-wrap">
+              <div id="qr-container"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="qr-warning" hidden></div>
+
+        <p id="qr-length-hint" hidden></p>
+
+        <a id="preview-link" href="/c" target="_blank" rel="noopener" hidden
+          >Preview this card <span class="ui-icon" data-icon="arrow"></span
+        ></a>
+
+        <div id="present-actions">
+          <button id="exit-present-btn" class="notch-tr">Exit</button>
+          <button
+            id="save-qr-btn"
+            title="Save QR code (PNG)"
+            aria-label="Save QR code"
+          >
+            <span class="ui-icon" data-icon="download"></span>
+          </button>
+          <button
+            id="present-contrast-btn"
+            type="button"
+            title="Toggle High Contrast QR"
+            aria-label="High contrast QR"
+            aria-pressed="false"
+          >
+            <span class="ui-icon" data-icon="contrast"></span>
+          </button>
+        </div>
+      </section>
+
+      <section id="control-bar">
+        <div id="bucket-tabs" role="group" aria-label="Audience group"></div>
+
+        <div id="qr-actions">
+          <button
+            id="copy-btn"
+            class="qr-action-btn notch-tr"
+            title="Copy share link"
+          >
+            <span class="ui-icon" data-icon="link"></span>
+            <span>Copy link</span>
+          </button>
+          <button
+            id="present-btn"
+            class="qr-action-btn notch-tr"
+            title="Present QR code"
+          >
+            <span class="ui-icon" data-icon="qr"></span>
+            <span>Present</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="handles-section">
+        <span class="section-title">Your handles</span>
+        <p class="section-helper">
+          Be cool. Only add handles and links that are yours, or that you have
+          permission to share. Tip: you can paste a full profile link and canid
+          will pull out the handle.
+        </p>
+        <div id="handles-list"></div>
+        <div id="add-network-block">
+          <span class="add-network-label">Add a network</span>
+          <div
+            id="network-picker"
+            role="group"
+            aria-label="Add a network"
+          ></div>
+        </div>
+      </section>
+
+      <section id="name-section">
+        <span class="section-title">Default display name</span>
+        <p class="section-helper">
+          Optional and public. Shown at the top of your card, and above your QR
+          in Present mode. Leave blank to show just the canid logo. Each group
+          can set its own in “Group settings.”
+        </p>
+        <input
+          type="text"
+          id="display-name"
+          class="display-name-input"
+          maxlength="40"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          aria-label="Default display name"
+        />
+      </section>
+
+      <section id="color-section">
+        <span class="section-title">Theme</span>
+        <p class="section-helper">
+          These colors style your QR code and the page people see when they scan
+          it. The font applies to your name and handles on that page.
+        </p>
+        <div id="color-pickers">
+          <button
+            type="button"
+            class="color-swatch-wrap"
+            id="swatch-p-wrap"
+            aria-label="Primary color"
+          >
+            <span class="color-swatch-name">Primary</span>
+            <span class="color-swatch-gradient" id="swatch-p-gradient"></span>
+          </button>
+          <button
+            type="button"
+            class="color-swatch-wrap"
+            id="swatch-a-wrap"
+            aria-label="Accent color"
+          >
+            <span class="color-swatch-name">Accent</span>
+            <span class="color-swatch-gradient" id="swatch-a-gradient"></span>
+          </button>
+          <div class="hidden-controls">
+            <input
+              type="color"
+              id="color-p"
+              class="color-input-hidden"
+              tabindex="-1"
+              aria-hidden="true"
+            />
+            <input
+              type="color"
+              id="color-a"
+              class="color-input-hidden"
+              tabindex="-1"
+              aria-hidden="true"
+            />
+          </div>
+        </div>
+        <div class="font-picker-block">
+          <span class="font-picker-label">Font</span>
+          <div id="font-picker" role="group" aria-label="Card font"></div>
+        </div>
+        <div class="theme-toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-title">High contrast QR</span>
+            <span class="toggle-desc"
+              >Simplifies style for older screens, low-light scanning, or
+              high-density codes.</span
+            >
+          </div>
+          <button
+            type="button"
+            id="safe-mode-toggle"
+            class="toggle-btn"
+            aria-pressed="false"
+            aria-label="High contrast QR"
+          >
+            Off
+          </button>
+        </div>
+      </section>
+
+      <section id="bucket-config">
+        <span class="section-title">Group settings</span>
+        <p class="section-helper">
+          Group names are private to you. “Display” is the optional public
+          display name for that group’s card; leave it blank to use your
+          default.
+        </p>
+        <div id="bucket-config-inner">
+          <div id="bucket-names"></div>
+          <button id="add-bucket-btn" type="button">＋ Add group</button>
+          <div class="default-bucket-row">
+            <label for="default-bucket-select"
+              >Default group (shown on open)</label
+            >
+            <select
+              id="default-bucket-select"
+              aria-label="Default group"
+            ></select>
+          </div>
+        </div>
+      </section>
+
+      <section id="matrix-section">
+        <span class="section-title">Group assignment</span>
+        <div id="membership-matrix"></div>
+      </section>
+
+      <section id="backup-section">
+        <span class="section-title">Backup &amp; restore</span>
+        <p class="backup-intro">
+          Your profiles live only on this device. Back them up to move them to
+          another device, or to get them back if you clear your browser. You can
+          use a backup link, or download a JSON file.
+        </p>
+
+        <div id="backup-nudge" hidden>
+          <span class="ui-icon" data-icon="backup"></span>
+          <span class="nudge-text"
+            >You’ve made changes since your last backup. Back up now so you
+            won’t have to build it again.</span
+          >
+          <button id="nudge-backup-btn">Back up</button>
+        </div>
+
+        <p class="backup-warning">
+          <strong>Warning:</strong> the backup link
+          <strong>contains every handle</strong> and setting, across all your
+          profiles. Anyone who gets it sees everything.
+        </p>
+        <button id="backup-btn" class="notch-tr">
+          <span class="ui-icon" data-icon="backup"></span>
+          Back up everything
+        </button>
+        <div id="backup-output" hidden>
+          <div class="backup-url-wrap">
+            <div
+              id="backup-url-display"
+              class="masked"
+              aria-label="Backup URL"
+            ></div>
+            <button class="backup-action-btn" id="reveal-backup-btn">
+              Reveal
+            </button>
+            <button class="backup-action-btn" id="copy-backup-btn">Copy</button>
+          </div>
+          <div class="backup-bottom-row">
+            <button class="backup-action-btn" id="download-backup-btn">
+              Download JSON
+            </button>
+            <label class="import-label">
+              Restore from JSON
+              <input
+                type="file"
+                id="import-btn"
+                accept=".json,application/json"
+              />
+            </label>
+          </div>
+        </div>
+
+        <div class="backup-restore">
+          <span class="backup-subtitle">Restore from a link or code</span>
+          <textarea
+            id="backup-paste"
+            placeholder="Paste a backup link, backup code, or card link here…"
+            aria-label="Backup link, backup code, or card link"
+            spellcheck="false"
+            autocapitalize="off"
+          ></textarea>
+          <button id="restore-paste-btn" class="notch-tr">
+            <span class="ui-icon" data-icon="restore"></span>
+            Restore
+          </button>
+        </div>
+
+        <p class="version-string">
+          canid v1.7.1 · <a href="/terms">Terms &amp; privacy</a>
+        </p>
+      </section>
+    </div>
+
+    <nav id="bottom-nav">
+      <button class="bottom-nav-btn" id="nav-copy-btn" aria-label="Copy link">
+        <span class="ui-icon" data-icon="link"></span>
+        <span class="nav-label">Copy link</span>
+      </button>
+      <button
+        class="bottom-nav-btn"
+        id="nav-present-btn"
+        aria-label="Present QR code"
+      >
+        <span class="ui-icon" data-icon="qr"></span>
+        <span class="nav-label">Present</span>
+      </button>
+    </nav>
+
+    <footer id="web-footer">
+      <span class="footer-title">© 2026 canid</span>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/faq">FAQ</a>
+        <a href="/terms">Terms</a>
+        <a href="mailto:dev@canid.app">Contact</a>
+      </nav>
+    </footer>
+
+    <div id="profile-menu" hidden>
+      <div
+        id="profile-menu-panel"
+        class="kc-notch"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="profile-menu-title"
+      >
+        <p id="profile-menu-title" class="profile-menu-title">Your profiles</p>
+        <p class="profile-menu-desc">
+          Each profile is a separate set of cards, with its own handles, groups,
+          and color. You’re sharing from whichever one is active.
+        </p>
+        <div id="profile-list" class="profile-list"></div>
+        <button id="profile-new" class="profile-new">＋ New profile</button>
+      </div>
+    </div>
+
+    <div id="install-modal" hidden>
+      <div
+        id="install-dialog"
+        class="kc-notch"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="install-heading"
+      >
+        <div class="faq-head">
+          <h2 id="install-heading">Install canid</h2>
+          <button id="install-close" class="faq-close" aria-label="Close">
+            <span class="ui-icon" data-icon="close"></span>
+          </button>
+        </div>
+        <div class="faq-body">
+          <p>
+            We recommend installing canid to your home screen. It keeps your
+            profile saved on your device and gives you one-tap access to your QR
+            code.
+          </p>
+          <details class="faq-item" data-platform="ios" open>
+            <summary class="faq-q">iPhone &amp; iPad — Safari</summary>
+            <div class="faq-a">
+              <p>
+                Open this page in <strong>Safari</strong>, tap the
+                <strong>Share</strong> button (the box with an arrow pointing
+                up), scroll down and tap <strong>Add to Home Screen</strong>,
+                then <strong>Add</strong>.
+              </p>
+            </div>
+          </details>
+          <details class="faq-item" data-platform="android-chrome">
+            <summary class="faq-q">Android — Chrome</summary>
+            <div class="faq-a">
+              <p>
+                Tap the <strong>three-dot menu (⋮)</strong> in the top-right,
+                tap <strong>Add to Home screen</strong> or
+                <strong>Install app</strong>, then <strong>Install</strong>.
+              </p>
+            </div>
+          </details>
+          <details class="faq-item" data-platform="android-samsung">
+            <summary class="faq-q">Android — Samsung Internet</summary>
+            <div class="faq-a">
+              <p>
+                Tap the <strong>menu</strong> (three lines, bottom-right), tap
+                <strong>Add page to</strong>, then <strong>Home screen</strong>,
+                then <strong>Add</strong>.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <div id="nfc-modal" hidden data-state="idle">
+      <div
+        id="nfc-dialog"
+        class="kc-notch"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="nfc-heading"
+      >
+        <div class="faq-head">
+          <h2 id="nfc-heading">Write to NFC tag</h2>
+          <button id="nfc-close" class="faq-close" aria-label="Close">
+            <span class="ui-icon" data-icon="close"></span>
+          </button>
+        </div>
+        <div class="nfc-body">
+          <span class="nfc-graphic" aria-hidden="true"
+            ><span class="ui-icon" data-icon="nfc"></span
+          ></span>
+          <p id="nfc-status" class="nfc-status" aria-live="polite"></p>
+          <p id="nfc-warn" class="nfc-warn" hidden></p>
+          <button id="nfc-write" class="nfc-write notch-tr" type="button">
+            Write a tag
+          </button>
+          <p class="nfc-note">
+            Writing doesn’t lock the tag. You can overwrite it anytime. NFC
+            writing works in Chrome on Android with NFC turned on.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="faq-modal" hidden>
+      <div
+        id="faq-dialog"
+        class="kc-notch"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="faq-heading"
+      >
+        <div class="faq-head">
+          <h2 id="faq-heading">How it works &amp; FAQ</h2>
+          <button id="faq-close" class="faq-close" aria-label="Close">
+            <span class="ui-icon" data-icon="close"></span>
+          </button>
+        </div>
+        <div id="faq-body" class="faq-body"></div>
+      </div>
+    </div>
+
+    <div id="terms-gate" hidden>
+      <div
+        id="terms-gate-dialog"
+        class="kc-notch"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="terms-gate-title"
+        tabindex="-1"
+      >
+        <h2 id="terms-gate-title" class="terms-gate-title">
+          A few things to know first
+        </h2>
+        <p class="terms-gate-intro">
+          canid works differently from most apps. Before you make a card:
+        </p>
+        <ul class="terms-gate-list">
+          <li>
+            <strong>Your card isn’t a webpage.</strong> It’s packed into the
+            link itself and rebuilt in the viewer’s browser. Nothing is stored
+            on a server.
+          </li>
+          <li>
+            <strong>A shared link is permanent.</strong> Once you hand out a
+            link or QR, you can’t edit or take it back, just like a paper card
+            or sending someone a handle name.
+          </li>
+          <li>
+            <strong>Your editing copy lives only on this device.</strong> A
+            backup restores everything; a saved card link can rebuild that one
+            card. Without either, clearing your browser or losing your phone
+            means starting over.
+          </li>
+          <li>
+            <strong>Scrambled isn’t encrypted.</strong> Anyone you give a link
+            or QR to can read everything in it, so only add what you’re okay
+            sharing.
+          </li>
+        </ul>
+        <p class="terms-gate-foot">
+          Continuing means you accept the
+          <a href="/terms" target="_blank" rel="noopener">Terms &amp; privacy</a
+          >.
+        </p>
+        <div class="terms-gate-actions">
+          <button id="terms-gate-cancel" type="button">Cancel</button>
+          <button id="terms-gate-agree" type="button" class="notch-tr">
+            I understand
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirm-modal" hidden>
+      <div
+        id="confirm-dialog"
+        class="kc-notch"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="confirm-title"
+        aria-describedby="confirm-body"
+      >
+        <p id="confirm-title" class="confirm-title"></p>
+        <p id="confirm-body" class="confirm-desc"></p>
+        <div class="confirm-actions">
+          <button id="confirm-cancel" type="button">Cancel</button>
+          <button id="confirm-ok" type="button" class="notch-tr">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <span id="saved-indicator" aria-live="polite" role="status"></span>
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/vendor/qr-styling.js"></script>
+    <script type="module" src="/js/app.js"></script>
+
+    <!-- Privacy-first, cookieless analytics. -->
+    <script
+      async
+      src="https://scripts.simpleanalyticscdn.com/latest.js"
+    ></script>
+  </body>
+</html>

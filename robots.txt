@@ -1,0 +1,8 @@
+# canid is a static site. A card's contents live in the URL fragment (after the
+# "#"), which is never sent to a server, so cards cannot be crawled or indexed
+# regardless of this file. The landing/editor is fine to index; the card viewer
+# (/c) carries its own `noindex` meta tag and is not worth crawling.
+User-agent: *
+Allow: /
+
+Sitemap: https://canid.app/sitemap.xml

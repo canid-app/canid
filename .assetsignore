@@ -1,0 +1,29 @@
+# Cloudflare Workers Assets ignore.
+
+.git
+.gitignore
+.gitattributes
+
+# Deploy config and this file itself
+.assetsignore
+wrangler.jsonc
+wrangler.toml
+.wrangler
+
+# Dependencies / package manifests
+node_modules
+package.json
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+.dev.vars*
+.env*
+
+# OS
+.DS_Store
+
+# Repo docs not meant for the live site
+README*
+LICENSE*
+SECURITY*

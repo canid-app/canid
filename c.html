@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0a08">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex">
+  <title>canid</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="canid">
+  <meta property="og:title" content="Someone shared a canid card">
+  <meta property="og:description" content="Open to view their links. canid is a free, data-respecting way to share contact info.">
+  <meta property="og:image" content="https://canid.app/icons/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Someone shared a canid card">
+  <meta name="twitter:description" content="Open to view their links. canid is a free, data-respecting way to share contact info.">
+  <meta name="twitter:image" content="https://canid.app/icons/og-image.png">
+  <link rel="preload" href="/fonts/Karrik-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/icons/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="stylesheet" href="/css/view.css">
+</head>
+<body>
+  <noscript>
+    <p class="noscript-note">This card is built in your browser and needs JavaScript. Your browser has it turned
+      off.</p>
+  </noscript>
+  <header class="v-header">
+    <button class="v-nav-btn v-back" id="v-back" hidden aria-label="Back to saved cards">
+      <span aria-hidden="true">‹</span>
+    </button>
+    <div class="v-brand">
+      <img src="/icons/canid-logo.svg" alt="canid" class="v-logo" id="v-logo" width="289" height="129">
+      <h1 class="v-name" id="v-name" dir="auto" hidden></h1>
+    </div>
+    <button class="v-nav-btn v-save" id="v-save">Save</button>
+  </header>
+
+  <main>
+    <div id="links-container"></div>
+    <p id="empty-state" hidden>No links to show.</p>
+
+    <footer class="v-cta">
+      <hr class="cta-divider">
+      <a href="/" id="cta-btn" class="notch-tr">Create your own canid</a>
+      <p class="v-disclaimer">Anyone can make a canid card. Only trust one from someone you know. <a href="/faq#staying-safe">Staying safe</a>.</p>
+      <img id="cta-watermark" class="cta-watermark" src="/icons/canid-logo.svg" alt="Made with canid" width="289"
+        height="129" hidden>
+    </footer>
+  </main>
+
+  <div id="warn-overlay" hidden>
+    <div id="warn-dialog" class="kc-notch" role="dialog" aria-modal="true" aria-labelledby="warn-title">
+      <p id="warn-title" class="warn-title">Continue?</p>
+      <p class="warn-desc">This is a custom link. Check the address before you continue:</p>
+      <div class="warn-url">
+        <span id="warn-host" class="warn-host"></span>
+        <span id="warn-full" class="warn-full"></span>
+      </div>
+      <p id="warn-idn" class="warn-idn" hidden>⚠ This address uses special characters that can imitate a familiar site. The real address is the “xn--…” form shown above. Check it carefully.</p>
+      <div class="warn-actions">
+        <button id="warn-cancel" class="warn-btn warn-cancel">Cancel</button>
+        <button id="warn-go" class="warn-btn warn-go notch-tr">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="copy-overlay" hidden>
+    <div id="copy-dialog" class="kc-notch" role="dialog" aria-modal="true" aria-labelledby="copy-title">
+      <p id="copy-title" class="warn-title">Handle copied ✓</p>
+      <p id="copy-desc" class="warn-desc">Open the app and paste it to find them.</p>
+      <div class="warn-url">
+        <span id="copy-handle" class="warn-host"></span>
+      </div>
+      <div class="warn-actions">
+        <button id="copy-cancel" class="warn-btn warn-cancel">Done</button>
+        <button id="copy-go" class="warn-btn warn-go notch-tr">Go to site</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="save-overlay" hidden>
+    <div id="save-dialog" class="kc-notch" role="dialog" aria-modal="true" aria-labelledby="save-title" tabindex="-1">
+      <p id="save-title" class="warn-title">Save to your cards</p>
+      <p id="save-desc" class="warn-desc">Name this card so you can find it later.</p>
+      <input id="save-note" class="save-note" type="text" maxlength="40" placeholder="Name this card (optional)" autocomplete="off" autocapitalize="words" spellcheck="false">
+      <p id="save-hint" class="save-hint"></p>
+      <div class="warn-actions">
+        <button id="save-remove" class="warn-btn save-remove" hidden>Remove</button>
+        <button id="save-cancel" class="warn-btn warn-cancel">Cancel</button>
+        <button id="save-confirm" class="warn-btn warn-go notch-tr">Save</button>
+      </div>
+      <hr class="save-sep">
+      <p class="vcard-hint">or, download them as a contact file (.vcf)</p>
+      <button id="v-vcard" class="v-vcard" type="button">Add to contacts</button>
+    </div>
+  </div>
+
+  <script type="module" src="/js/view.js"></script>
+</body>
+</html>
