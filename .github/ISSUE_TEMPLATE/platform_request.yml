@@ -1,0 +1,24 @@
+name: Platform request
+description: Ask for a new network to be supported on cards
+labels: [platform]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Platform name
+    validations:
+      required: true
+  - type: input
+    id: pattern
+    attributes:
+      label: Public profile URL format
+      placeholder: e.g. https://example.com/@username
+  - type: input
+    id: example
+    attributes:
+      label: Link to an example public profile
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything unusual?
+      description: App-only with no web profiles, opaque IDs instead of usernames, handles on subdomains, etc.
