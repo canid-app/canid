@@ -48,13 +48,11 @@ tested it, and why. I'll try to review PRs as quickly as I can.
 
 ## Contributing
 
-- Keep in mind the constraints: no dependencies, no build step, no backend. PRs that add a framework, bundler, or npm packages won't be merged.
-- `js/view.js`, `js/registry.js`, and `js/scramble.js` are security-sensitive. Fragment data is attacker-controlled, and the registry regexes are the XSS allowlist. Changes there get extra scrutiny. Keep new regexes conservative.
-- Adding a platform means a `REGISTRY` entry with a strict regex plus a brand
-  icon in `js/icons.js`.
-- Contributions are licensed under AGPL-3.0 like the rest of the project.
-- Found a security issue? Email [dev@canid.app](mailto:dev@canid.app)
-  instead of opening a public issue.
+See [CONTRIBUTING.md](CONTRIBUTING.md). The short version: keep the
+constraints (no dependencies, no build step, no backend), treat `js/view.js`,
+`js/registry.js`, and `js/scramble.js` as security-sensitive, and report
+security issues to [dev@canid.app](mailto:dev@canid.app) instead of opening
+a public issue ([SECURITY.md](SECURITY.md)).
 
 ## Name, logo, and look
 

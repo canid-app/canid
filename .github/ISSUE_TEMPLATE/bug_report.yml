@@ -1,0 +1,26 @@
+name: Bug report
+description: Something broken on canid.app or in the code
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: >-
+        If a card is involved, craft a minimal throwaway card that shows the
+        bug — don't paste your real card link, it contains your actual
+        handles.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Browser & device
+      placeholder: e.g. Safari on iPhone 15, installed to Home Screen

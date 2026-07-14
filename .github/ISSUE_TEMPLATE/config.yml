@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security issue
+    url: https://github.com/canid-app/canid/security/policy
+    about: Please report vulnerabilities privately by email, not in a public issue.
