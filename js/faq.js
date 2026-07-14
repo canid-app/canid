@@ -175,6 +175,13 @@ export const FAQ_ITEMS = [
     ],
   },
   {
+    q: 'Is canid open source?',
+    a: [
+      'Yes. The full source code is on <a href="https://github.com/canid-app/canid" target="_blank" rel="noopener">GitHub</a>, ' +
+      'licensed under AGPL-3.0. Bug reports and contributions are welcome.',
+    ],
+  },
+  {
     q: 'Why did you make this?',
     a: [
       'I don’t like surveillance capitalism, sharing contacts in chaotic environments is difficult, and I want to be able to share different handles with different groups. That’s pretty much it.',
