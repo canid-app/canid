@@ -22,7 +22,7 @@ of opening a public issue — see [SECURITY.md](SECURITY.md).
 ## Developing
 
 ```sh
-npx wrangler dev
+npx wrangler dev --persist-to /tmp/canid-wrangler
 ```
 
 serves the site at `http://localhost:8787` with production routing. Work on

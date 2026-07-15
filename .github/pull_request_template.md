@@ -4,7 +4,7 @@
 
 ## How you tested it
 
-<!-- e.g. `npx wrangler dev` + the flows you exercised. -->
+<!-- e.g. `npx wrangler dev --persist-to /tmp/canid-wrangler` + the flows you exercised. -->
 
 ## Checklist
 

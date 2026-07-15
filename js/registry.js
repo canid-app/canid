@@ -34,6 +34,14 @@
  *            put the handle in a subdomain rather than a path (e.g. Substack:
  *            endpoint 'https://' + handle + suffix '.substack.com'). The viewer card
  *            shows `handle + suffix` so the full address is visible.
+ * noteType → the value is free text the owner wrote, not a handle. Never linked
+ *            and never linkified: the card shows the text (side-scrolling) and
+ *            opens a read-only dialog with a copy button. The owner may set a
+ *            label, which titles both the card and the dialog.
+ * maxLen   → caps the editor input. Only set where the value is free text long
+ *            enough to matter to link/QR size (notes).
+ * addLabel → overrides `label` in the editor's "+ Add another …" button, for the
+ *            one platform whose label is plural and reads wrong there.
  * pathLabel → the value may carry one extra path segment (e.g. GitHub's
  *            user/repo). When it does, cards show this label instead of `label`.
  *            Also tells the editor's sanitizer to keep the slash, and to keep
@@ -120,6 +128,18 @@ export const REGISTRY = [
   // ── Location ─────────────────────────────────────────────────────────────────
   { key: 'loc', label: 'Location', endpoint: 'GEO', mapType: true, prefix: '',
     re: /^(?=.*[\p{L}\p{N}])[\p{L}\p{N} ,.'#/&()°:+\-]{1,200}$/u },
+
+  // ── Notes ────────────────────────────────────────────────────────────────────
+  // Free text. Unlike every other entry above, `re` here is a blocklist rather
+  // than an allowlist: a note is arbitrary prose, so enumerating what people are
+  // allowed to say isn't possible.
+  //
+  // What the regex does exclude is the invisible-character classes that enable
+  // text spoofing, mirroring text.js's sanitizeText
+  { key: 'nt', label: 'Notes', endpoint: null, noteType: true, prefix: '', maxLen: 2048, addLabel: 'note',
+    re: /^(?=\s*\S)[^\p{Cc}\p{Cf}\p{Cs}\p{Zl}\p{Zp}]{1,2048}$/u,
+    placeholder: 'Anything you want to say',
+    hint: 'Plain text only. Links in a note aren’t clickable. Long notes make the QR denser.' },
 ];
 
 export function urlAllowed(reg, urlStr) {
@@ -142,7 +162,7 @@ export function isValidValue(reg, val) {
   return reg.re.test(val);
 }
 
-const PINNED_LAST = ['ph', 'em', 'url', 'loc'];
+const PINNED_LAST = ['ph', 'em', 'url', 'loc', 'nt'];
 export function byDisplayOrder(a, b) {
   const ap = PINNED_LAST.indexOf(a.key);
   const bp = PINNED_LAST.indexOf(b.key);

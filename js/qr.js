@@ -2,15 +2,35 @@ import { contrast } from './util.js';
 
 let _last = null;
 
+// Draws the QR and reports whether the data actually fit.
+//
+// A QR code has a hard ceiling (~2.3KB at error correction M).
+//
+// On failure a short placeholder is drawn so the caller has a real QR to blur
+// behind its warning rather than an empty frame.
 export function buildQR(url, container, params) {
   const QRCodeStyling = window.QRCodeStyling;
-  if (!QRCodeStyling) { container.textContent = 'QR library not loaded'; return; }
+  if (!QRCodeStyling) { container.textContent = 'QR library not loaded'; return false; }
 
-  _last = { url, ...params };
   container.innerHTML = '';
-  const qr = new QRCodeStyling(buildOpts(_last, {}));
-  qr.append(container);
-  makeResponsive(container, qr);
+  try {
+    const qr = new QRCodeStyling(buildOpts({ url, ...params }, {}));
+    qr.append(container);
+    makeResponsive(container, qr);
+    _last = { url, ...params };
+    return true;
+  } catch (_) {
+    _last = null; // nothing real to download or present
+    container.innerHTML = '';
+    try {
+      const placeholder = new QRCodeStyling(buildOpts({ url: location.origin, ...params }, {}));
+      placeholder.append(container);
+      makeResponsive(container, placeholder);
+    } catch (_) {
+      container.innerHTML = '';
+    }
+    return false;
+  }
 }
 
 function makeResponsive(container, qr) {

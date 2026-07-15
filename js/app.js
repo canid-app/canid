@@ -515,7 +515,7 @@ function renderHandles() {
     const addBtn = document.createElement('button');
     addBtn.className = 'add-handle-btn';
     addBtn.dataset.base = reg.key;
-    addBtn.textContent = `+ Add another ${reg.label}`;
+    addBtn.textContent = `+ Add another ${reg.addLabel || reg.label}`;
     group.appendChild(addBtn);
 
     list.appendChild(group);
@@ -523,11 +523,12 @@ function renderHandles() {
 }
 
 function canLabel(reg) {
-  return reg.urlType || reg.idType || reg.mapType || reg.endpoint === 'mailto:' || reg.endpoint === 'tel:';
+  return reg.urlType || reg.idType || reg.mapType || reg.noteType
+    || reg.endpoint === 'mailto:' || reg.endpoint === 'tel:';
 }
 
 function isVerbatim(reg) {
-  return reg.mapType || reg.endpoint === 'mailto:' || reg.endpoint === 'tel:';
+  return reg.mapType || reg.noteType || reg.endpoint === 'mailto:' || reg.endpoint === 'tel:';
 }
 
 function makeHandleRow(key, reg) {
@@ -553,6 +554,7 @@ function makeHandleRow(key, reg) {
     labelInput.placeholder = (reg.host || reg.idType) ? 'Handle, e.g. @yourname'
       : reg.urlType ? 'Label, e.g. My website'
       : reg.mapType ? 'Label, e.g. Home'
+      : reg.noteType ? 'Label, e.g. About me'
       : reg.endpoint === 'tel:' ? 'Label, e.g. Mobile'
       : 'Label, e.g. Work email';
     labelInput.maxLength = 40;
@@ -587,9 +589,10 @@ function makeHandleRow(key, reg) {
     : reg.endpoint === 'tel:' ? 'Phone number'
     : `${reg.label} handle`;
   input.autocomplete = 'off';
-  input.autocapitalize = reg.mapType ? 'words' : 'none';
-  input.spellcheck = false;
+  input.autocapitalize = reg.mapType ? 'words' : reg.noteType ? 'sentences' : 'none';
+  input.spellcheck = !!reg.noteType;
   if (reg.digits) input.inputMode = 'numeric';
+  if (reg.maxLen) input.maxLength = reg.maxLen;
 
   fields.appendChild(input);
 
@@ -909,10 +912,24 @@ function renderQR() {
 
   const { url, validCount, hasInvalid } = data;
 
+  // Build first: whether the link fits in a QR decides what we say below.
+  const qrFits = buildQR(url, document.getElementById('qr-container'), {
+    primary: profile.scheme.p,
+    accent:  profile.scheme.a,
+    safeMode: profile.ui.safeMode,
+  });
+
   const warningEl = document.getElementById('qr-warning');
   const actionBtns = document.querySelectorAll('.qr-action-btn, .bottom-nav-btn');
+  const qrOnlyBtns = document.querySelectorAll('#present-btn, #nav-present-btn');
+  const setDisabled = (btns, off) => btns.forEach(b => {
+    b.classList.toggle('disabled', off);
+    if (off) b.setAttribute('aria-disabled', 'true');
+    else b.removeAttribute('aria-disabled');
+  });
 
-  document.querySelector('.qr-outer')?.classList.toggle('qr-empty', validCount === 0);
+  // Blur the QR whenever it isn't a usable code: nothing to encode, or too much.
+  document.querySelector('.qr-outer')?.classList.toggle('qr-empty', validCount === 0 || !qrFits);
 
   if (warningEl) {
     const emptyProfile = !Object.values(profile.handles).some(v => v && v.trim());
@@ -922,14 +939,19 @@ function renderQR() {
       warningEl.innerHTML = emptyProfile
         ? `<span class="ui-icon">${UI_ICONS.info}</span><span>Add a handle below and your QR code will appear here.</span>`
         : `<span class="ui-icon">${UI_ICONS.error}</span><span>This group is empty. Add a handle to it first.</span>`;
-      actionBtns.forEach(b => { b.classList.add('disabled'); b.setAttribute('aria-disabled', 'true'); });
+      setDisabled(actionBtns, true);
+    } else if (!qrFits) {
+      warningEl.hidden = false;
+      warningEl.innerHTML = `<span class="ui-icon">${UI_ICONS.error}</span><span>Too long for a QR code. Shorten a note, or move some handles to another group. The link still works, copy it instead.</span>`;
+      setDisabled(actionBtns, false);
+      setDisabled(qrOnlyBtns, true);
     } else if (hasInvalid) {
       warningEl.hidden = false;
       warningEl.innerHTML = `<span class="ui-icon">${UI_ICONS.warning}</span><span>Some handles are invalid and won’t be shared.</span>`;
-      actionBtns.forEach(b => { b.classList.remove('disabled'); b.removeAttribute('aria-disabled'); });
+      setDisabled(actionBtns, false);
     } else {
       warningEl.hidden = true;
-      actionBtns.forEach(b => { b.classList.remove('disabled'); b.removeAttribute('aria-disabled'); });
+      setDisabled(actionBtns, false);
     }
   }
 
@@ -939,14 +961,9 @@ function renderQR() {
     else preview.hidden = true;
   }
 
-  updateLengthHint(data);
+  // The "too long" error supersedes the softer density hint.
+  updateLengthHint(qrFits ? data : null);
   updateCopyButtonState();
-
-  buildQR(url, document.getElementById('qr-container'), {
-    primary: profile.scheme.p,
-    accent:  profile.scheme.a,
-    safeMode: profile.ui.safeMode,
-  });
 }
 
 // ── Length hint ──────────────────────────────────────────────────────────────
@@ -958,7 +975,7 @@ function updateLengthHint(data) {
   hint.hidden = false;
   hint.classList.toggle('severe', level === 2);
   hint.textContent = level === 2
-    ? 'Long link: this QR is dense and may be hard to scan. Try splitting handles across groups, or use shorter custom links.'
+    ? 'Long link: this QR is dense and may be hard to scan. Try shortening a note, splitting handles across groups, or using shorter custom links.'
     : 'Heads up: this link is getting long, which makes the QR denser.';
 }
 

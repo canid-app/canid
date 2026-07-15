@@ -6,7 +6,7 @@
 //   email  → EMAIL
 //   phone  → TEL
 //   canid card link + every other linkable network → labelled URL rows
-//   app-only handles (Discord/Signal/…, no public URL) → NOTE
+//   app-only handles (Discord/Signal/…, no public URL) and notes → NOTE
 
 const CRLF = '\r\n';
 
@@ -19,16 +19,28 @@ function esc(s) {
 }
 
 // Fold a content line to <=75 octets with CRLF + single space continuation.
+//
+// Counts UTF-8 bytes and steps by code point. Slicing by JS string index would
+// cut an astral character (emoji) in half whenever its surrogate pair straddled
+// a fold boundary, and the halves become replacement characters once the file is
+// written as UTF-8. Notes are the only field long enough to fold, and they carry
+// emoji. Splitting a grapheme across lines is fine — unfolding rejoins it.
+const ENC = new TextEncoder();
+
 function fold(line) {
-  if (line.length <= 75) return line;
+  if (ENC.encode(line).length <= 75) return line;
   const max = 73;
-  let out = line.slice(0, max);
-  let i = max;
-  while (i < line.length) {
-    out += CRLF + ' ' + line.slice(i, i + max);
-    i += max;
+  const lines = [];
+  let cur = '';
+  let bytes = 0;
+  for (const ch of line) {
+    const n = ENC.encode(ch).length;
+    if (bytes + n > max) { lines.push(cur); cur = ''; bytes = 0; }
+    cur += ch;
+    bytes += n;
   }
-  return out;
+  if (cur) lines.push(cur);
+  return lines.join(CRLF + ' ');
 }
 
 // The display label for a single linkable entry.
@@ -73,7 +85,7 @@ export function buildVCard({ entries, name, cardUrl }) {
     } else if (href) {
       grouped(href, entryLabel(entry));
     } else {
-      notes.push(reg.label + ': ' + val);
+      notes.push(entryLabel(entry) + ': ' + val);
     }
   }
 
