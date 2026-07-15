@@ -355,8 +355,9 @@ button.link-card:active {
 .card-handle::-webkit-scrollbar { display: none; } /* WebKit/Blink */
 
 .card-handle.overflows {
-  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
-  mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+  --fade-w: 32px;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--fade-w)), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - var(--fade-w)), transparent);
 }
 
 .alt-font .v-name,
@@ -486,7 +487,8 @@ button.link-card:active {
 
 /* ── External-link warning dialog ────────────────────────────────────────── */
 #warn-overlay,
-#copy-overlay {
+#copy-overlay,
+#note-overlay {
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -500,18 +502,37 @@ button.link-card:active {
 }
 
 #warn-overlay[hidden],
-#copy-overlay[hidden] {
+#copy-overlay[hidden],
+#note-overlay[hidden] {
   display: none;
 }
 
 #warn-dialog,
-#copy-dialog {
+#copy-dialog,
+#note-dialog {
   --kc-border: var(--primary);
   --kc-fill: #141414;
   --notch: 22px;
   width: 100%;
   max-width: 420px;
   padding: 28px 26px 22px;
+}
+
+.note-body {
+  max-height: min(46vh, 380px);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  padding: 14px 16px;
+  margin-bottom: 22px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-family: var(--card-font);
+  font-size: var(--fs-base);
+  line-height: 1.55;
+  color: var(--text);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 #copy-go[hidden] {

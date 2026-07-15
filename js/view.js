@@ -114,7 +114,8 @@ for (const [key, rawVal] of params.entries()) {
   const val = rawVal.trim();
   if (!val) continue;
 
-  const canLabel = reg.urlType || reg.idType || reg.mapType || reg.endpoint === 'mailto:' || reg.endpoint === 'tel:';
+  const canLabel = reg.urlType || reg.idType || reg.mapType || reg.noteType
+    || reg.endpoint === 'mailto:' || reg.endpoint === 'tel:';
   const label = canLabel ? (labels[key] || null) : null;
 
   if (reg.urlType) {
@@ -162,11 +163,15 @@ if (entries.length === 0) {
     // Custom links must pass through the warning dialog
     const warnGated = !!href && reg.urlType && !reg.host;
     const card = document.createElement(
-      warnGated || reg.displayOnly ? 'button' : href ? 'a' : 'div');
+      warnGated || reg.displayOnly || reg.noteType ? 'button' : href ? 'a' : 'div');
 
     if (warnGated) {
       card.type = 'button';
       card.addEventListener('click', () => openWarn(href));
+    } else if (reg.noteType) {
+      card.type = 'button';
+      card.setAttribute('aria-label', `Read ${label || reg.label}`);
+      card.addEventListener('click', () => openNote(val, label || reg.label));
     } else if (href) {
       card.href = href;
       card.target = '_blank';
@@ -223,14 +228,30 @@ if (entries.length === 0) {
     addCardOutline(card);
   });
 
-  const markOverflow = () => {
-    for (const el of container.querySelectorAll('.card-handle')) {
-      el.classList.toggle('overflows', el.scrollWidth > el.clientWidth + 1);
+  const FADE_W = 32;
+
+  const markOverflow = el => {
+    const max = el.scrollWidth - el.clientWidth;
+    if (max <= 1) {
+      el.classList.remove('overflows');
+      el.style.removeProperty('--fade-w');
+      return;
     }
+    el.classList.add('overflows');
+    const remaining = Math.max(0, Math.min(FADE_W, max - el.scrollLeft));
+    el.style.setProperty('--fade-w', `${remaining}px`);
   };
-  markOverflow();
-  document.fonts?.ready?.then(markOverflow);
-  window.addEventListener('resize', markOverflow);
+
+  const markAll = () => {
+    for (const el of container.querySelectorAll('.card-handle')) markOverflow(el);
+  };
+
+  for (const el of container.querySelectorAll('.card-handle')) {
+    el.addEventListener('scroll', () => markOverflow(el), { passive: true });
+  }
+  markAll();
+  document.fonts?.ready?.then(markAll);
+  window.addEventListener('resize', markAll);
 }
 
 // ── Shared modal a11y ────────────────────────────────────────────────────────
@@ -343,6 +364,65 @@ document.addEventListener('keydown', e => {
   if (copyOverlay.hidden) return;
   if (e.key === 'Escape') closeCopy();
   else trapTab(e, copyDialog);
+});
+
+
+// ── Note viewer (note cards) ─────────────────────────────────────────────────
+// The note is attacker-controlled free text: it only ever reaches the page as
+// textContent, and nothing here turns it into a link. See registry.js.
+
+const noteOverlay = document.getElementById('note-overlay');
+const noteDialog = document.getElementById('note-dialog');
+const noteTitleEl = document.getElementById('note-title');
+const noteBodyEl = document.getElementById('note-body');
+const noteCopyBtn = document.getElementById('note-copy');
+let pendingNote = '';
+let copyResetTimer = null;
+
+function resetCopyBtn() {
+  clearTimeout(copyResetTimer);
+  noteCopyBtn.textContent = 'Copy';
+  noteCopyBtn.disabled = false;
+}
+
+function openNote(text, title) {
+  pendingNote = text;
+  noteTitleEl.textContent = title;
+  noteBodyEl.textContent = text;
+  noteBodyEl.scrollTop = 0;
+  resetCopyBtn();
+  lastFocused = document.activeElement;
+  noteOverlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+  setPageInert(true);
+  noteDialog.focus();
+}
+
+function closeNote() {
+  noteOverlay.hidden = true;
+  pendingNote = '';
+  resetCopyBtn();
+  document.body.style.overflow = '';
+  setPageInert(false);
+  if (lastFocused && lastFocused.focus) lastFocused.focus();
+}
+
+noteCopyBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(pendingNote);
+    noteCopyBtn.textContent = 'Copied ✓';
+    copyResetTimer = setTimeout(resetCopyBtn, 2000);
+  } catch (_) {
+    window.prompt('Copy this note:', pendingNote);
+  }
+});
+
+document.getElementById('note-close').addEventListener('click', closeNote);
+noteOverlay.addEventListener('click', e => { if (e.target === noteOverlay) closeNote(); });
+document.addEventListener('keydown', e => {
+  if (noteOverlay.hidden) return;
+  if (e.key === 'Escape') closeNote();
+  else trapTab(e, noteDialog);
 });
 
 

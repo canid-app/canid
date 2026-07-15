@@ -31,7 +31,7 @@ the card with DOM APIs.
 Requires Node.js (for wrangler only since the site itself has no dependencies):
 
 ```sh
-npx wrangler dev
+npx wrangler dev --persist-to /tmp/canid-wrangler
 ```
 
 This serves the site at `http://localhost:8787` with the same routing as
@@ -42,7 +42,7 @@ deliberately bypasses its cache on `localhost`.
 
 Pushing to `main` deploys to production via Cloudflare's git integration. 
 **Never test against `main`**. Do work on a branch, verify it with
-`npx wrangler dev`, and merge when it's ready. External contributions are
+`npx wrangler dev --persist-to /tmp/canid-wrangler`, and merge when it's ready. External contributions are
 welcome, just make sure you open a PR and describe what you changed, how you
 tested it, and why. I'll try to review PRs as quickly as I can.
 
