@@ -7,4 +7,12 @@
     new URLSearchParams(location.search).has('edit') ||
     location.hash.startsWith('#b=');
   document.documentElement.dataset.mode = wantsEditor ? 'app' : 'landing';
+
+  // Privacy-first, cookieless analytics
+  if (!wantsEditor) {
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://scripts.simpleanalyticscdn.com/latest.js';
+    document.head.appendChild(s);
+  }
 })();

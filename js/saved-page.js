@@ -189,7 +189,10 @@ function showAddMsg(text, ok) {
 addBtn.addEventListener('click', () => {
   const parsed = parseCardLink(addInput.value);
   if (!parsed) { showAddMsg("That doesn’t look like a canid card link.", false); return; }
-  addSaved(parsed);
+  if (!addSaved(parsed)) {
+    showAddMsg("Couldn’t save on this device. Your browser may be blocking storage.", false);
+    return;
+  }
   addInput.value = '';
   showAddMsg('Card saved.', true);
   render();

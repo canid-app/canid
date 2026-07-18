@@ -149,7 +149,7 @@
             "name": "Can you (canid) see my handles?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. The part of a web address after the “#” is never sent to any server — your browser keeps it on your device. So your handles never reach canid, and they never reach Cloudflare either. The server simply hosts the front-end files that decode the card on your own device. For honesty: the site is delivered through Cloudflare, which protects it from attacks and outages. Like any network provider, Cloudflare can see that some device requested a canid page, along with basic connection details such as an IP address but never the contents of your card, because that part of the link is never transmitted. To count how many people use the site we use Simple Analytics, a privacy-first, cookieless service that tallies page visits anonymously. It never sees your card and never tracks you across sites. It runs only on the editor and information pages, not on the viewer page that opens a card, so there is still no way for anyone to see who opened your card or what was inside it."
+              "text": "No. The part of a web address after the “#” is never sent to any server — your browser keeps it on your device. So your handles never reach canid, and they never reach Cloudflare either. The server simply hosts the front-end files that decode the card on your own device. For honesty: the site is delivered through Cloudflare, which protects it from attacks and outages. Like any network provider, Cloudflare can see that some device requested a canid page, along with basic connection details such as an IP address but never the contents of your card, because that part of the link is never transmitted. To count how many people use the site we use Simple Analytics, a privacy-first, cookieless service that tallies page visits anonymously. It never sees your card and never tracks you across sites. It runs only on the landing and information pages — not in the editor, and not on the viewer page that opens a card — so there is still no way for anyone to see who opened your card or what was inside it."
             }
           },
           {
@@ -174,6 +174,14 @@
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Your editable card lives only on the device you made it on. A full backup restores everything — every group and profile — so it’s the copy to rely on. A share link you saved for yourself works as a partial fallback: paste it into Back up & restore and canid rebuilds that card’s handles as a new profile (a link only carries one group, so the rest isn’t in it). Without either, clearing your data or switching phones means starting from scratch. Use Back up & restore to save a copy you can move to another device or keep in a password manager. One thing to know on iPhone and iPad: if you use canid in a Safari tab without installing it, Apple may automatically delete its saved data after about a week of not opening it. Installing canid to your Home Screen avoids that."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if canid ever shuts down?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Your data isn’t held hostage. There’s no server-side copy of your card to lose in the first place. But the viewer page that turns a link back into a card is served from canid.app, so if the site ever went offline, shared links would stop rendering until someone put a viewer back up. That’s why canid is open source (AGPL): the code and the link format are public, so anyone can run their own viewer or decode a card without us. Your backup file is plain JSON and stays readable no matter what happens to the site."
             }
           },
           {
@@ -205,7 +213,7 @@
             "name": "Is it really free? Any tracking or ads?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Free, with no accounts, no cookies, and no ads. The only third-party script is Simple Analytics — a privacy-first, cookieless tool that counts page visits anonymously, doesn’t track you across sites, and never sees your card. It runs on the editor and information pages, not on the viewer page that opens a card. (The site is delivered through Cloudflare for security and speed; see “Can you (canid) see my handles?” above for exactly what that can and can’t see.) There’s no card data to monetize, and that isn’t the point of canid anyway."
+              "text": "Free, with no accounts, no cookies, and no ads. The only third-party script is Simple Analytics — a privacy-first, cookieless tool that counts page visits anonymously, doesn’t track you across sites, and never sees your card. It runs on the landing and information pages — not in the editor or on the viewer page that opens a card. (The site is delivered through Cloudflare for security and speed; see “Can you (canid) see my handles?” above for exactly what that can and can’t see.) There’s no card data to monetize, and that isn’t the point of canid anyway."
             }
           },
           {
@@ -482,8 +490,9 @@
               transmitted. To count how many people use the site we use Simple
               Analytics, a privacy-first, cookieless service that tallies page
               visits anonymously. It never sees your card and never tracks you
-              across sites. It runs only on the editor and information pages,
-              not on the viewer page that opens a card, so there is still no way
+              across sites. It runs only on the landing and information pages —
+              not in the editor, and not on the viewer page that opens a card —
+              so there is still no way
               for anyone to see who opened your card or what was inside it.
             </p>
           </div>
@@ -541,6 +550,27 @@
               tab without installing it, Apple may automatically delete its
               saved data after about a week of not opening it. Installing canid
               to your Home Screen avoids that.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">
+            What happens if canid ever shuts down?
+          </summary>
+          <div class="faq-a">
+            <p>
+              Your data isn’t held hostage. There’s no server-side copy of
+              your card to lose in the first place. But the viewer page that
+              turns a link back into a card is served from canid.app, so if the
+              site ever went offline, shared links would stop rendering until
+              someone put a viewer back up.
+            </p>
+            <p>
+              That's part of why canid is open
+              source (AGPL): the code and the link format are public, so anyone
+              can run their own viewer or decode a card without us. Your backup
+              file is plain JSON and stays readable no matter what happens to
+              the site.
             </p>
           </div>
         </details>
@@ -619,8 +649,9 @@
               Free, with no accounts, no cookies, and no ads. The only
               third-party script is Simple Analytics — a privacy-first,
               cookieless tool that counts page visits anonymously, doesn’t track
-              you across sites, and never sees your card. It runs on the editor
-              and information pages, not on the viewer page that opens a card.
+              you across sites, and never sees your card. It runs on the
+              landing and information pages — not in the editor or on the
+              viewer page that opens a card.
               (The site is delivered through Cloudflare for security and speed;
               see “Can you (canid) see my handles?” above for exactly what that
               can and can’t see.) There’s no card data to monetize, and that

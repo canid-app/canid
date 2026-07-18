@@ -130,7 +130,7 @@
         "operatingSystem": "Any (web browser)",
         "browserRequirements": "Requires JavaScript",
         "description": "A free digital contact card that lives in a link, not a server. Share the right handles by QR code or NFC tag with no app, no account, no tracking. Works with 30+ platforms.",
-        "keywords": "digital contact card, digital contact card, QR code contact card, NFC contact card, NFC contact tag, link in bio alternative",
+        "keywords": "digital contact card, QR code contact card, NFC contact card, NFC contact tag, link in bio alternative",
         "featureList": [
           "Share contact handles by QR code",
           "Write your card to an NFC tag",
@@ -294,7 +294,7 @@
             <p>
               canid has no database, no accounts, and no backend. Your handles
               are packed into a single long URL, and that URL <em>is</em> your
-              card. It never touches a server: when someone opens your link,
+              card. It never touches our servers: when someone opens your link,
               their own browser builds the card on their screen. canid is also
               <a
                 href="https://github.com/canid-app/canid"
@@ -305,7 +305,9 @@
             </p>
             <p>
               Since no data lives online, this isn’t for everyone. Any link
-              you’ve shared keeps working forever but your editable card lives
+              you’ve shared keeps working for as long as canid is online (and
+              the format is open source, so it isn’t tied to us), but your
+              editable card lives
               only on your device, so clearing your browser or switching phones
               means rebuilding it from scratch unless you kept a backup or a
               link. And because each link is a fixed snapshot, you can’t edit or
@@ -718,7 +720,7 @@
         </div>
 
         <p class="version-string">
-          canid v1.8.1 · <a href="/terms">Terms &amp; privacy</a>
+          canid v1.8.2 · <a href="/terms">Terms &amp; privacy</a>
         </p>
       </section>
     </div>
@@ -950,11 +952,5 @@
 
     <script src="/vendor/qr-styling.js"></script>
     <script type="module" src="/js/app.js"></script>
-
-    <!-- Privacy-first, cookieless analytics. -->
-    <script
-      async
-      src="https://scripts.simpleanalyticscdn.com/latest.js"
-    ></script>
   </body>
 </html>

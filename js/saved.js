@@ -65,12 +65,13 @@ export function findSaved(fragment) {
   return readAll().find(e => e.fragment === fragment) || null;
 }
 
+// Returns the saved entry, or null if the entry was invalid or the write failed
 export function addSaved({ fragment, note, p, a }) {
   const entry = normalizeEntry({ fragment, note, p, a, savedAt: Date.now() });
   if (!entry) return null;
   const list = readAll().filter(e => e.fragment !== entry.fragment);
   list.unshift(entry);
-  writeAll(list.sort((x, y) => y.savedAt - x.savedAt));
+  if (!writeAll(list.sort((x, y) => y.savedAt - x.savedAt))) return null;
   return entry;
 }
 
