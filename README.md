@@ -20,11 +20,12 @@ the card with DOM APIs.
 - The link "scrambling" (`js/scramble.js`) is obfuscation against casual
   scrapers, **not** encryption.
 - The only external request the site makes is the
-  [Simple Analytics](https://simpleanalytics.com) script on the landing/editor
-  page and the info pages (FAQ, terms, 404). The card viewer (`/c`) and
-  saved-cards pages load nothing third-party, and the per-path CSP in
-  `_headers` enforces it: on `/c` and `/saved` no external origin is allowed
-  at all.
+  [Simple Analytics](https://simpleanalytics.com) script on the landing view
+  and the info pages (FAQ, terms, 404). `js/mode.js` injects it only in
+  landing mode, so the editor (app mode), the card viewer (`/c`), and the
+  saved-cards pages load nothing third-party. The per-path CSP in
+  `_headers` additionally enforces that on `/c` and `/saved` no external
+  origin is allowed at all.
 
 ## Local development
 
@@ -85,7 +86,7 @@ one of these, change all of its copies:
 If you're curious about why this exists: it's because I attend a lot of events
 in different communities, and I want to give different people different
 contact info. canid makes it easy to create one-off contact cards,
-link-in-bios, or other landing pages without it ever touching a server or
+link-in-bios, or other landing pages without it ever touching our servers or
 requiring an account that creates a web of your online presence and can be
 sold to data brokers. A nice side effect is that the page doesn't "exist" on
 the internet until someone is viewing it, so it won't end up being aggregated

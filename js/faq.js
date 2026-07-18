@@ -89,9 +89,9 @@ export const FAQ_ITEMS = [
       'contents of your card, because that part of the link is never transmitted. ' +
       'To count how many people use the site we use Simple Analytics, a privacy-first, ' +
       'cookieless service that tallies page visits anonymously. It never sees your card ' +
-      'and never tracks you across sites. It runs only on the editor and information pages, ' +
-      'not on the viewer page that opens a card, so there is still no way for anyone to see ' +
-      'who opened your card or what was inside it.',
+      'and never tracks you across sites. It runs only on the landing and information pages — ' +
+      'not in the editor, and not on the viewer page that opens a card — so there is still no ' +
+      'way for anyone to see who opened your card or what was inside it.',
     ],
   },
   {
@@ -127,6 +127,19 @@ export const FAQ_ITEMS = [
       'One thing to know on iPhone and iPad: if you use canid in a Safari tab without ' +
       'installing it, Apple may automatically delete its saved data after about a week of ' +
       'not opening it. Installing canid to your Home Screen avoids that.',
+    ],
+  },
+  {
+    q: 'What happens if canid ever shuts down?',
+    a: [
+      'Your data isn’t held hostage. There’s no server-side copy of your card to lose in ' +
+      'the first place. But the viewer page that turns a link back into a card is served ' +
+      'from canid.app, so if the site ever went offline, shared links would stop rendering ' +
+      'until someone put a viewer back up.',
+      'That’s why canid is open source (AGPL): the code ' +
+      'and the link format are public, so anyone can run their own viewer or decode a card ' +
+      'without us. Your backup file is plain JSON and stays readable no matter what happens ' +
+      'to the site.',
     ],
   },
   {
@@ -167,8 +180,8 @@ export const FAQ_ITEMS = [
     a: [
       'Free, with no accounts, no cookies, and no ads. The only third-party script is Simple Analytics' +
       ' — a privacy-first, cookieless tool that counts page visits anonymously, ' +
-      'doesn’t track you across sites, and never sees your card. It runs on the editor and ' +
-      'information pages, not on the viewer page that opens a card. (The site is ' +
+      'doesn’t track you across sites, and never sees your card. It runs on the landing and ' +
+      'information pages — not in the editor or on the viewer page that opens a card. (The site is ' +
       'delivered through Cloudflare for security and speed; see “Can you (canid) see my ' +
       'handles?” above for exactly what that can and can’t see.) There’s no card data to ' +
       'monetize, and that isn’t the point of canid anyway.',

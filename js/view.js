@@ -535,7 +535,13 @@ function confirmSave() {
     updateNote(currentSaved.id, note);
     currentSaved.note = cleanLabel(note);
   } else {
-    currentSaved = addSaved({ fragment: RAW_FRAGMENT, note, p, a });
+    const saved = addSaved({ fragment: RAW_FRAGMENT, note, p, a });
+    if (!saved) {
+      saveHintEl.textContent = 'Couldn’t save on this device. Your browser may be '
+        + 'blocking storage (for example in private browsing), or storage may be full.';
+      return;
+    }
+    currentSaved = saved;
   }
   reflectSavedState();
   closeSave();
