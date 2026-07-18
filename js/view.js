@@ -134,6 +134,8 @@ for (const [key, rawVal] of params.entries()) {
       href = mapHref(val);
     } else if (reg.endpoint === 'mailto:') {
       href = `mailto:${val}`;
+    } else if (reg.endpoint === 'tel:') {
+      href = 'tel:' + val.replace(/[^+0-9]/g, '');
     } else if (!reg.displayOnly && reg.endpoint) {
       href = reg.endpoint + val + (reg.suffix || '');
     }
