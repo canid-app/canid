@@ -43,6 +43,7 @@
 
 /* ── Tokens ─────────────────────────────────────────────────────────────────── */
 :root {
+  color-scheme: dark;
   --primary:            #e8824a;
   --primary-container:  #b84c00;
   --on-primary:         #1c0800;
@@ -101,6 +102,10 @@
 
   /* System monospace — reserved for raw URLs / backup codes only */
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root { color-scheme: dark; }
 }
 
 @media (prefers-reduced-motion: reduce) {

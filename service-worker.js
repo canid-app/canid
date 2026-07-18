@@ -1,4 +1,4 @@
-const CACHE = 'canid-v62';
+const CACHE = 'canid-v63';
 const SHELL = [
   '/',
   '/editor',
