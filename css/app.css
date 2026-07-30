@@ -499,6 +499,7 @@ html[data-mode="app"]     #web-footer { display: none !important; }
   display: flex;
   align-items: center;
   gap: 28px;
+  margin-left: auto;
 }
 .lp-nav a {
   font-family: 'Karrik', sans-serif;
@@ -525,8 +526,50 @@ html[data-mode="app"]     #web-footer { display: none !important; }
 .lp-nav-toggle:hover { background: var(--surface-container-high); }
 .lp-nav-toggle .ui-icon svg { width: 26px; height: 26px; }
 
+.lp-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+}
+
+.lp-bar-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 16px;
+  --notch: 9px;
+  --edge: var(--outline);
+  background: var(--edge);
+  color: var(--secondary);
+  clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, 0 100%);
+  font-family: 'Karrik', sans-serif;
+  font-size: var(--fs-caption);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.lp-bar-cta::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background: var(--surface);
+  clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, 0 100%);
+}
+.lp-bar-cta:hover { --edge: var(--primary); color: var(--on-surface); text-decoration: none; }
+.lp-bar-cta:active { transform: scale(0.98); }
+
+.lp-bar-cta:focus-visible { --edge: var(--outline); outline: 2px solid var(--primary); outline-offset: -4px; }
+
 @media (max-width: 720px) {
+  .lp-bar-actions { margin-left: 0; }
+  .lp-bar-cta { height: 40px; padding: 0 14px; }
   .lp-nav {
+    margin-left: 0;
     position: absolute;
     top: 100%;
     right: 0;
